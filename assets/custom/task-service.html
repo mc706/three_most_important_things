@@ -10,7 +10,7 @@
     </style>
     <core-ajax id="ajax"
       auto
-      url="http://127.0.0.1:8000/data/"
+      url="http://127.0.0.1:8000/today/"
       on-core-response="{{tasksLoaded}}"
       handleAs="json">
     </core-ajax>
@@ -23,6 +23,9 @@
     tasksLoaded: function() {
       // Make a copy of the loaded data
       this.tasks = this.$.ajax.response.slice(0);
+    },
+    updateTasks: function() {
+        //this.
     },
     /**
      * Update the service with the current favorite value.

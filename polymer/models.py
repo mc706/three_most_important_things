@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class Day(models.Model):
     account = models.ForeignKey(User)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField()
 
     def __unicode__(self):
         return self.account.username + str(self.date)
@@ -21,12 +22,13 @@ class Day(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=100, blank=False)
     day = models.ForeignKey(Day)
-    priority = models.IntegerField(default=1)
+    priority = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(3)])
     completed = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
+        unique_together = ('day', 'priority')
         verbose_name = 'task'
         verbose_name_plural = 'tasks'

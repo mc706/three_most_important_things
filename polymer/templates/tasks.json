@@ -1,0 +1,4 @@
+[{% for task in tasks %}
+    {% include "task.json" with task=task%}{%if not forloop.last%},{%endif%}
+{% endfor %}
+]

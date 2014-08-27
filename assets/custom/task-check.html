@@ -1,18 +1,21 @@
 <link rel="import" href="/static/components/polymer/polymer.html">
 <link rel="import" href="/static/components/core-icon-button/core-icon-button.html">
 <link rel="import" href="/static/components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="/static/components/paper-shadow/paper-shadow.html">
 
-<polymer-element name="task-check">
+<polymer-element name="task-check" attributes="task">
+
     <template>
         <style>
             :host {
                 display: block;
                 position: relative;
                 background-color: white;
-                padding:20px;
+                padding: 20px;
                 width: 100%;
                 margin-bottom: 5px;
             }
+
             paper-checkbox {
                 margin-right: 30px;
             }
@@ -21,10 +24,12 @@
         </style>
 
         <!-- CARD CONTENTS GO HERE -->
-        <div class="card-header" layout horizontal center>
-            <paper-checkbox></paper-checkbox>
-            <content select="h2"></content>
-        </div>
+        <paper-shadow z="2">
+            <div class="card-header" layout horizontal center>
+                <paper-checkbox checked="{{ task.completed }}" change="{{ updateTasks }}"></paper-checkbox>
+                <content select="h2"></content>
+            </div>
+        </paper-shadow>
     </template>
     <script>
         Polymer({});

@@ -8,9 +8,10 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'three_most_important_things.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^login/$', 'accounts.views.login_user', name='login'),
+    url(r'^register/$', 'accounts.views.register', name='register'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^data/$', 'polymer.views.data', name='data'),
+    url(r'^today/$', 'polymer.views.today', name='today'),
     url(r'^$', 'polymer.views.home', name='home'),
 )
 

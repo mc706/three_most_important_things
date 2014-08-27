@@ -13,8 +13,9 @@
         </style>
         <task-service id="service" tasks="{{ tasks }}"></task-service>
         <div layout vertical center>
+
             <template repeat="{{ task in tasks }}">
-                <task-check>
+                <task-check task="{{ task }}">
                     <h2>{{ task.title }}</h2>
                 </task-check>
             </template>
