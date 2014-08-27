@@ -1,0 +1,52 @@
+<link rel="import" href="/static/components/polymer/polymer.html">
+<link rel="import" href="/static/components/core-ajax/core-ajax.html">
+<link rel="import" href="/static/components/paper-input/paper-input.html">
+<link rel="import" href="/static/components/paper-button/paper-button.html">
+
+<polymer-element name="login-form">
+
+    <template>
+        <style>
+            #loginBut {
+                background: #4285f4;
+                color: #fff;
+                padding: 5px 10px;
+                margin-right: 15px;;
+            }
+            .error {
+                color:red;
+            }
+        </style>
+        <core-ajax id="coreAjaxForm"
+                   method="post"
+                   contentType="application/json"
+                   url="/login/"
+                   on-core-response="{{ loggedIn }}"
+                   response="{{ response }}"
+                   handleAs="json"
+                   body='{"username":"{{ username }}", "password":"{{ password }}"}'></core-ajax>
+        <template repeat="{{ error in response.errors }}">
+            <span class="error">{{ error.message }}</span>
+            <br>
+        </template>
+        <paper-input label="Username" name="username" floatingLabel value="{{ username }}"></paper-input>
+        <br>
+        <paper-input label="Password" name="password" type="password" floatingLabel value="{{ password }}"></paper-input>
+        <br>
+        <paper-button label="Login" raisedButton name="login" type="submit" id="loginBut" on-tap="{{ submit }}"></paper-button>
+        <content select="a"></content>
+    </template>
+    <script>
+        Polymer('login-form', {
+            submit: function () {
+                this.$.coreAjaxForm.go();
+            },
+            loggedIn: function () {
+                if (this.response.login) {
+                    window.location.href = "/";
+                }
+            }
+        });
+    </script>
+
+</polymer-element>

@@ -1,44 +1,30 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 <html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-    <link href='{% static "lib/css/styles.css" %}' rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" href="/static/lib/images/favicon.ico">
+<head>
+    <title>3 Most Important Things</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src="{% static "components/platform/platform.js" %}"></script>
+    <link rel="stylesheet" href="{% static "styles/style.css" %}">
+    <link rel="import" href="{% static "components/font-roboto/roboto.html" %}">
+    <link rel="import" href="{% static "components/core-header-panel/core-header-panel.html" %}">
+    <link rel="import" href="{% static "custom/login-form.html" %}">
+
 </head>
-<body>
-<div class="container">
-    <div class="page-header">
-        <h3>Login</h3>
+<body unresolved touch-action="auto">
+<core-header-panel>
+    <core-toolbar>
+        <div layout vertical center>
+            <h1>Welcome to the 3 Most Important Things</h1>
+        </div>
+    </core-toolbar>
+
+    <div class="container" layout vertical center>
+        <h1>Login</h1>
+        <login-form>
+            <a href="{% url "register" %}">Register</a>
+        </login-form>
     </div>
-    {% if errors %}
-        {% for error in errors %}
-            <div class="alert alert-danger alert-dismissable">
-                {{ error.message }}
-            </div>
-        {% endfor %}
-    {% endif %}
-    <div class="col-lg-4 col-md-6">
-        <form class="form" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input id="username" name="username" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" class="form-control">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn-primary btn">
-                <a href="{% url 'register' %}">Register</a>
-            </div>
-        </form>
-    </div>
-</div>
+</core-header-panel>
 </body>
 </html>
