@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link href='{% static "lib/css/styles.css" %}' rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="/static/lib/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/lib/images/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/lib/images/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/lib/images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/lib/images/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/static/lib/images/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/static/lib/images/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/static/lib/images/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/lib/images/apple-touch-icon-152x152.png">
+    <link rel="icon" type="image/png" href="/static/lib/images/favicon-196x196.png" sizes="196x196">
+    <link rel="icon" type="image/png" href="/static/lib/images/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/static/lib/images/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/static/lib/images/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/static/lib/images/favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="msapplication-TileImage" content="/static/lib/images/mstile-144x144.png">
+    <meta name="msapplication-config" content="/static/lib/images/browserconfig.xml">
+</head>
+<body>
+<div class="container">
+    <div class="page-header">
+        <h3>Register</h3>
+    </div>
+    {% if errors %}
+        {% for error in errors %}
+            <div class="alert alert-danger alert-dismissable">
+                {{ error.message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="col-lg-4 col-md-6">
+        <form class="form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="confirm">Confirm Password</label>
+                <input id="confirm" name="confirm" type="password" class="form-control">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn-success btn">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

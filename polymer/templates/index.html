@@ -1,0 +1,41 @@
+<!doctype html>
+{% load staticfiles %}
+<html>
+
+<head>
+    <title>3 Most Important Things</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <script src="{% static "components/platform/platform.js" %}"></script>
+    <link rel="stylesheet" href="{% static "styles/style.css" %}">
+    <link rel="import" href="{% static "components/font-roboto/roboto.html" %}">
+    <link rel="import" href="{% static "components/core-header-panel/core-header-panel.html" %}">
+    <link rel="import" href="{% static "components/core-toolbar/core-toolbar.html" %}">
+    <link rel="import" href="{% static "components/paper-tabs/paper-tabs.html" %}">
+    <link rel="import" href="{% static "custom/day-card.html" %}">
+    <link rel="import" href="{% static "custom/task-check.html" %}">
+</head>
+
+<body unresolved touch-action="auto">
+<core-header-panel>
+    <core-toolbar>
+        <paper-tabs id="tabs" selected="today" self-end>
+            <paper-tab name="today">Today</paper-tab>
+            <paper-tab name="calendar">Calendar</paper-tab>
+        </paper-tabs>
+    </core-toolbar>
+
+    <div class="container" layout vertical center>
+        <h1>3 Most Important Things</h1>
+        <day-card></day-card>
+    </div>
+</core-header-panel>
+<script>
+    var tabs = document.querySelector('paper-tabs');
+
+    tabs.addEventListener('core-select', function () {
+        console.log("Selected: " + tabs.selected);
+    });
+</script>
+</body>
+
+</html>

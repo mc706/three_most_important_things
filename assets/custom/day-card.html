@@ -1,0 +1,28 @@
+<link rel="import" href="/static/components/polymer/polymer.html">
+<link rel="import" href="/static/components/core-icon-button/core-icon-button.html">
+<link rel="import" href="task-check.html">
+<link rel="import" href="task-service.html">
+
+<polymer-element name="day-card">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <task-service id="service" tasks="{{ tasks }}"></task-service>
+        <div layout vertical center>
+            <template repeat="{{ task in tasks }}">
+                <task-check>
+                    <h2>{{ task.title }}</h2>
+                </task-check>
+            </template>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>
