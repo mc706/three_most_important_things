@@ -1,6 +1,9 @@
 <link rel="import" href="/static/components/polymer/polymer.html">
 <link rel="import" href="/static/components/core-icon-button/core-icon-button.html">
 <link rel="import" href="/static/components/core-ajax/core-ajax.html">
+<link rel="import" href="/static/components/paper-dialog/paper-dialog.html">
+<link rel="import" href="/static/components/paper-button/paper-button.html">
+<link rel="import" href="/static/components/paper-input/paper-input.html">
 <link rel="import" href="task-check.html">
 
 <polymer-element name="day-card">
@@ -9,6 +12,9 @@
             :host {
                 display: block;
                 width: 100%;
+            }
+            #submitBut {
+                background-color:green;
             }
         </style>
         <core-ajax id="getTasks"
@@ -29,10 +35,20 @@
                    body='[{"title":"{{ task1.title }}","completed":{{ task1.completed }},"priority":1},{"title":"{{ task2.title }}","completed":{{ task2.completed }},"priority":2},{"title":"{{ task3.title }}","completed":{{ task3.completed }},"priority":3}]'
                    handleAs="json">
         </core-ajax>
+        <paper-dialog id='newDialog' heading="Create your tasks for the day" transition="paper-transition-bottom">
+            <p>What do you want to complete today?</p>
+                <paper-input value="{{ newTask1 }}" floatingLabel label="Task 1"></paper-input>
+                <paper-input value="{{ newTask2 }}" floatingLabel label="Task 2"></paper-input>
+                <paper-input value="{{ newTask3 }}" floatingLabel label="Task 3"></paper-input>
+                <paper-button label="Submit" on-tap="{{ submitNew }}" raisedButton id="submitBut"></paper-button>
+            </p>
+        </paper-dialog>
         <div layout vertical center>
-            <task-check task="{{ task1 }}" if="{{ task1 }}"></task-check>
-            <task-check task="{{ task2 }}" if="{{ task2 }}"></task-check>
-            <task-check task="{{ task3 }}" if="{{ task3 }}"></task-check>
+            <template if="{{ tasks.length }}">
+                <task-check task="{{ task1 }}"></task-check>
+                <task-check task="{{ task2 }}"></task-check>
+                <task-check task="{{ task3 }}"></task-check>
+            </template>
         </div>
 
     </template>
@@ -53,7 +69,7 @@
             tasksLoaded: function () {
                 console.log('get', this.tasks);
                 if (this.tasks.length < 3) {
-
+                    this.$.newDialog.toggle();
                 } else {
                     this.task1 = this.tasks[0];
                     this.task2 = this.tasks[1];
@@ -65,6 +81,13 @@
                 this.task1 = this.tasks[0];
                 this.task2 = this.tasks[1];
                 this.task3 = this.tasks[2];
+            },
+            submitNew: function () {
+                console.log('submit');
+                this.task1 = {"title":this.newTask1, priority:1, completed:false};
+                this.task2 = {"title":this.newTask2, priority:2, completed:false};
+                this.task3 = {"title":this.newTask3, priority:3, completed:false};
+                this.$.newDialog.toggle();
             }
 
         });
