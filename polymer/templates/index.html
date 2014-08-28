@@ -12,6 +12,8 @@
     <link rel="import" href="{% static "components/core-toolbar/core-toolbar.html" %}">
     <link rel="import" href="{% static "components/paper-tabs/paper-tabs.html" %}">
     <link rel="import" href="{% static "custom/day-card.html" %}">
+    <link rel="import" href="{% static "custom/history-list.html" %}">
+    <link rel="import" href="{% static "custom/about-page.html" %}">
 </head>
 
 <body unresolved touch-action="auto">
@@ -26,8 +28,9 @@
 
     <div class="container" layout vertical center>
         <h1>3 Most Important Things</h1>
-        <day-card></day-card>
-        <!--<history-list></history-list>-->
+        <day-card id="today"></day-card>
+        <history-list id="history"></history-list>
+        <about-page id="about"></about-page>
 
     </div>
 </core-header-panel>
@@ -36,6 +39,10 @@
 
     tabs.addEventListener('core-select', function () {
         console.log("Selected: " + tabs.selected);
+        document.getElementById('today').style.display = 'none';
+        document.getElementById('history').style.display = 'none';
+        document.getElementById('about').style.display = 'none';
+        document.getElementById(tabs.selected).style.display = 'block';
     });
 </script>
 </body>

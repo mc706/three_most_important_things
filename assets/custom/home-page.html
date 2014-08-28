@@ -1,9 +1,14 @@
 <link rel="import" href="/static/components/polymer/polymer.html">
+<link rel="import" href="/static/components/font-roboto/roboto.html">
+<link rel="import" href="/static/components/core-header-panel/core-header-panel.html">
+<link rel="import" href="/static/components/core-toolbar/core-toolbar.html">
+<link rel="import" href="/static/components/paper-tabs/paper-tabs.html">
 <link rel="import" href="/static/components/core-pages/core-pages.html">
+
 <link rel="import" href="/static/custom/day-card.html">
 <link rel="import" href="/static/custom/history-list.html">
 
-<polymer-element name="home-page" attributes="show">
+<polymer-element name="home-page">
     <template>
         <style>
             :host {
@@ -11,16 +16,51 @@
                 width: 100%;
             }
         </style>
-        <template id=today if="{{ today }}">
-            <day-card></day-card>
-        </template>
-        <template id=history if="{{ history }}">
-            <history-list></history-list>
-        </template>
+        <core-header-panel>
+            <core-toolbar>
+                <paper-tabs id="tabs" selected="today" self-end>
+                    <paper-tab name="today" on-tap="{{ selectToday }}">Today</paper-tab>
+                    <paper-tab name="history" on-tap="{{ selectHistory }}">History</paper-tab>
+                    <paper-tab name="about" on-tap="{{ selectAbout }}">About</paper-tab>
+                </paper-tabs>
+            </core-toolbar>
+<!--
+            <div class="container" layout vertical center>
+                <h1>3 Most Important Things</h1>
+                <template id=today if="{{ today }}">
+                    <day-card></day-card>
+                </template>
+                <template id=history if="{{ history }}">
+                    <history-list></history-list>
+                </template>
+                <template id=about if="{{ about }}">
+                    <h3>About</h3>
+                    <p>Loreum Ipsum ...</p>
+                </template>
+
+            </div>
+            -->
+        </core-header-panel>
 
     </template>
 
     <script>
-        Polymer('hope-page', {});
+        Polymer('home-page', {
+            selectToday: function () {
+                this.today = true;
+                this.history = false;
+                this.about = false;
+            },
+            selectHistory: function () {
+                this.today = false;
+                this.history = true;
+                this.about = false;
+            },
+            selectAbout: function () {
+                this.today = false;
+                this.history = false;
+                this.about = true;
+            }
+        });
     </script>
 </polymer-element>
