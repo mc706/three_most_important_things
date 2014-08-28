@@ -1,0 +1,52 @@
+<link rel="import" href="/static/components/polymer/polymer.html">
+<link rel="import" href="/static/components/paper-shadow/paper-shadow.html">
+
+<polymer-element name="history-card" attributes="day">
+
+    <template>
+        <style>
+            :host {
+                display: block;
+                position: relative;
+                background-color: white;
+                padding: 10px;
+                width: 100%;
+                margin-bottom: 5px;
+
+            }
+
+            .completed-0 {
+                background-color: black;
+                color:white;
+            }
+
+            .completed-1 {
+                background-color: red;
+                color:white;
+            }
+
+            .completed-2 {
+                background-color: yellow;
+                color: black;
+            }
+
+            .completed-3 {
+                background-color: greenyellow;
+                color:black;
+            }
+
+
+        </style>
+
+        <!-- CARD CONTENTS GO HERE -->
+        <paper-shadow z="2">
+            <div class="card-header completed-{{ day.completed }}" layout horizontal center>
+                <h2 center>{{ day.date }}</h2>
+            </div>
+        </paper-shadow>
+    </template>
+    <script>
+        Polymer('history-card',{});
+    </script>
+
+</polymer-element>

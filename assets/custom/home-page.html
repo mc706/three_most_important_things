@@ -1,0 +1,32 @@
+<link rel="import" href="/static/components/polymer/polymer.html">
+<link rel="import" href="/static/components/core-pages/core-pages.html">
+<link rel="import" href="/static/custom/day-card.html">
+<link rel="import" href="/static/custom/history-list.html">
+
+<polymer-element name="home-page" attributes="show">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <template id=today if="{{ today }}">
+            <day-card></day-card>
+        </template>
+        <template id=history if="{{ history }}">
+            <history-list></history-list>
+        </template>
+
+    </template>
+
+    <script>
+        Polymer('hope-page', {
+            ready: function () {
+                this.today = this.show === 'today';
+                this.history = this.show === 'history';
+                console.log('in home', this.show);
+            }
+        });
+    </script>
+</polymer-element>

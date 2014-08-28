@@ -1,0 +1,31 @@
+<link rel="import" href="/static/components/polymer/polymer.html">
+<link rel="import" href="/static/components/core-ajax/core-ajax.html">
+<link rel="import" href="/static/custom/history-card.html">
+
+<polymer-element name="history-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <core-ajax id="getHistory"
+                   auto
+                   method="get"
+                   url="/history/"
+                   response="{{ history }}"
+                   handleAs="json">
+        </core-ajax>
+        <div layout vertical center>
+            <template repeat="{{ day in history }}">
+                <history-card day="{{ day }}"></history-card>
+            </template>
+        </div>
+
+    </template>
+
+    <script>
+        Polymer('history-list', {});
+    </script>
+</polymer-element>

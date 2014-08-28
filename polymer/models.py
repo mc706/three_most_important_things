@@ -10,7 +10,7 @@ class Day(models.Model):
     def __unicode__(self):
         return self.account.username + str(self.date)
 
-    def get_day_status(self):
+    def get_status(self):
         return sum([1 for task in self.task_set.all() if task.completed])
 
     class Meta:

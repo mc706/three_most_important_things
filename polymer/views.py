@@ -30,3 +30,8 @@ def today(request):
         day, created = Day.objects.get_or_create(account=request.user, date=today)
         return HttpResponse(status=200, content_type='application/json',
                             content=render(request, 'tasks.json', {'tasks': day.task_set.all()}))
+
+@login_required(login_url='/login/')
+def history(request):
+    history = Day.objects.filter(account=request.user).order_by('-date')
+    return HttpResponse(status=200, content_type='application/json', content=render(request, 'history.json', {'history':history}))

@@ -1,0 +1,6 @@
+[{%for day in history%}
+    {
+        "date":"{{day.date}}",
+        "completed": {{day.get_status}}
+    }{%if not forloop.last%},{%endif%}
+{%endfor%}]

@@ -12,7 +12,7 @@
     <link rel="import" href="{% static "components/core-toolbar/core-toolbar.html" %}">
     <link rel="import" href="{% static "components/paper-tabs/paper-tabs.html" %}">
     <link rel="import" href="{% static "custom/day-card.html" %}">
-    <link rel="import" href="{% static "custom/task-check.html" %}">
+    <link rel="import" href="{% static "custom/home-page.html" %}">
 </head>
 
 <body unresolved touch-action="auto">
@@ -20,13 +20,15 @@
     <core-toolbar>
         <paper-tabs id="tabs" selected="today" self-end>
             <paper-tab name="today">Today</paper-tab>
-            <paper-tab name="calendar">Calendar</paper-tab>
+            <paper-tab name="history">History</paper-tab>
         </paper-tabs>
     </core-toolbar>
 
     <div class="container" layout vertical center>
         <h1>3 Most Important Things</h1>
         <day-card></day-card>
+        <!--<history-list></history-list>-->
+
     </div>
 </core-header-panel>
 <script>

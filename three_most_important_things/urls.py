@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^register/$', 'accounts.views.register', name='register'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^today/$', 'polymer.views.today', name='today'),
+    url(r'^history/$', 'polymer.views.history', name='history'),
     url(r'^$', 'polymer.views.home', name='home'),
 )
 
