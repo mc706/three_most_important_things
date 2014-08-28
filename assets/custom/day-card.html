@@ -1,5 +1,5 @@
 <link rel="import" href="/static/components/polymer/polymer.html">
-<link rel="import" href="/static/components/core-icon-button/core-icon-button.html">
+<link rel="import" href="/static/components/core-localstorage/core-localstorage.html">
 <link rel="import" href="/static/components/core-ajax/core-ajax.html">
 <link rel="import" href="/static/components/paper-dialog/paper-dialog.html">
 <link rel="import" href="/static/components/paper-button/paper-button.html">
@@ -35,6 +35,7 @@
                    body='[{"title":"{{ task1.title }}","completed":{{ task1.completed }},"priority":1},{"title":"{{ task2.title }}","completed":{{ task2.completed }},"priority":2},{"title":"{{ task3.title }}","completed":{{ task3.completed }},"priority":3}]'
                    handleAs="json">
         </core-ajax>
+        <core-localstorage name="{{ date }}" value="{{ tasks }}" useRaw=false></core-localstorage>
         <paper-dialog id='newDialog' heading="Create your tasks for the day" transition="paper-transition-bottom">
             <p>What do you want to complete today?</p>
                 <paper-input value="{{ newTask1 }}" floatingLabel label="Task 1"></paper-input>
@@ -55,6 +56,10 @@
 
     <script>
         Polymer('day-card', {
+            created: function () {
+                var date = new Date();
+                this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+            },
             observe: {
                 'task1.completed': 'taskChange',
                 'task2.completed': 'taskChange',
