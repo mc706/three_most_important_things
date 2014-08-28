@@ -26,13 +26,19 @@
         <!-- CARD CONTENTS GO HERE -->
         <paper-shadow z="2">
             <div class="card-header" layout horizontal center>
-                <paper-checkbox checked="{{ task.completed }}" change="{{ updateTasks }}"></paper-checkbox>
-                <content select="h2"></content>
+                <paper-checkbox checked="{{ task.completed }}" on-change="{{ updateTask }}"></paper-checkbox>
+                <h2>{{ task.title }}</h2>
             </div>
         </paper-shadow>
     </template>
     <script>
-        Polymer({});
+        Polymer('task-check',{
+            updateTask: function(){
+                console.log(this.task);
+                this.fire('updateTask', {'msg':this.task});
+            }
+
+        });
     </script>
 
 </polymer-element>

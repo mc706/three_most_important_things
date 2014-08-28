@@ -1,7 +1,7 @@
 <link rel="import" href="/static/components/polymer/polymer.html">
 <link rel="import" href="/static/components/core-icon-button/core-icon-button.html">
+<link rel="import" href="/static/components/core-ajax/core-ajax.html">
 <link rel="import" href="task-check.html">
-<link rel="import" href="task-service.html">
 
 <polymer-element name="day-card">
     <template>
@@ -11,19 +11,62 @@
                 width: 100%;
             }
         </style>
-        <task-service id="service" tasks="{{ tasks }}"></task-service>
+        <core-ajax id="getTasks"
+                   auto
+                   method="get"
+                   url="/today/"
+                   on-core-response="{{ tasksLoaded }}"
+                   response="{{ tasks }}"
+                   handleAs="json">
+        </core-ajax>
+        <core-ajax id="postTasks"
+                   auto="false"
+                   method="post"
+                   url="/today/"
+                   on-core-response="{{ postSuccess }}"
+                   on-core-error=""
+                   response="{{ tasks }}"
+                   body='[{"title":"{{ task1.title }}","completed":{{ task1.completed }},"priority":1},{"title":"{{ task2.title }}","completed":{{ task2.completed }},"priority":2},{"title":"{{ task3.title }}","completed":{{ task3.completed }},"priority":3}]'
+                   handleAs="json">
+        </core-ajax>
         <div layout vertical center>
-
-            <template repeat="{{ task in tasks }}">
-                <task-check task="{{ task }}">
-                    <h2>{{ task.title }}</h2>
-                </task-check>
-            </template>
+            <task-check task="{{ task1 }}"></task-check>
+            <task-check task="{{ task2 }}"></task-check>
+            <task-check task="{{ task3 }}"></task-check>
         </div>
 
     </template>
 
     <script>
-        Polymer({});
+        Polymer('day-card', {
+            observe: {
+                'task1.completed': 'taskChange',
+                'task2.completed': 'taskChange',
+                'task3.completed': 'taskChange'
+            },
+            taskChange: function (old_task, new_task) {
+                if (old_task !== new_task) {
+                    console.log('update', this.tasks);
+                    this.$.postTasks.go();
+                }
+            },
+            tasksLoaded: function () {
+                console.log('get', this.tasks);
+                if (this.tasks.length < 3) {
+
+                } else {
+                    this.task1 = this.tasks[0];
+                    this.task2 = this.tasks[1];
+                    this.task3 = this.tasks[2];
+                }
+            },
+            postSuccess: function () {
+                console.log('post', this.tasks);
+                this.task1 = this.tasks[0];
+                this.task2 = this.tasks[1];
+                this.task3 = this.tasks[2];
+            }
+
+        });
     </script>
 </polymer-element>

@@ -15,7 +15,7 @@ def home(request):
 @csrf_exempt
 def today(request):
     today = date.today()
-    if request.method == "POST":
+    if request.method == "POST" and request.body.decode('utf-8'):
         print request.body.decode('utf-8')
         day, created = Day.objects.get_or_create(account=request.user, date=today)
         for i, task in enumerate(json.loads(request.body.decode('utf-8'))):
