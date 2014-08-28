@@ -86,3 +86,8 @@ STATIC_ROOT = BASE_DIR + '/static'
 STATICFILES_DIRS = (
     BASE_DIR + '/assets',
 )
+
+try:
+    from local_settings import *
+except ImportError as exp:
+    pass
