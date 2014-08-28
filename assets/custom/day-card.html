@@ -30,9 +30,9 @@
                    handleAs="json">
         </core-ajax>
         <div layout vertical center>
-            <task-check task="{{ task1 }}"></task-check>
-            <task-check task="{{ task2 }}"></task-check>
-            <task-check task="{{ task3 }}"></task-check>
+            <task-check task="{{ task1 }}" if="{{ task1 }}"></task-check>
+            <task-check task="{{ task2 }}" if="{{ task2 }}"></task-check>
+            <task-check task="{{ task3 }}" if="{{ task3 }}"></task-check>
         </div>
 
     </template>
