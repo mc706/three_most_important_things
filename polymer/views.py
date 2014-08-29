@@ -1,5 +1,5 @@
 import json
-from datetime import date
+from datetime import date, datetime
 from django.shortcuts import render, render_to_response, RequestContext, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -14,7 +14,12 @@ def home(request):
 @login_required(login_url='/login/')
 @csrf_exempt
 def today(request):
-    today = date.today()
+    print request.GET
+    if 'date' in request.GET:
+        today = datetime.strptime(request.GET['date'], '%Y-%m-%d')
+        print "using today from GET"
+    else:
+        today = date.today()
     if request.method == "POST" and request.body.decode('utf-8'):
         print request.body.decode('utf-8')
         day, created = Day.objects.get_or_create(account=request.user, date=today)

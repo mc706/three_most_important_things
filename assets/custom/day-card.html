@@ -13,8 +13,9 @@
                 display: block;
                 width: 100%;
             }
+
             #submitBut {
-                background-color:green;
+                background-color: green;
             }
         </style>
         <core-ajax id="getTasks"
@@ -23,7 +24,8 @@
                    url="/today/"
                    on-core-response="{{ tasksLoaded }}"
                    response="{{ tasks }}"
-                   handleAs="json">
+                   handleAs="json"
+                   params='{"date":"{{ date }}"}'>
         </core-ajax>
         <core-ajax id="postTasks"
                    auto="false"
@@ -33,15 +35,15 @@
                    on-core-error=""
                    response="{{ tasks }}"
                    body='[{"title":"{{ task1.title }}","completed":{{ task1.completed }},"priority":1},{"title":"{{ task2.title }}","completed":{{ task2.completed }},"priority":2},{"title":"{{ task3.title }}","completed":{{ task3.completed }},"priority":3}]'
-                   handleAs="json">
+                   handleAs="json" params='{"date":"{{ date }}"}'>
         </core-ajax>
         <core-localstorage name="{{ date }}" value="{{ tasks }}" useRaw=false></core-localstorage>
         <paper-dialog id='newDialog' heading="Create your tasks for the day" transition="paper-transition-bottom">
             <p>What do you want to complete today?</p>
-                <paper-input value="{{ newTask1 }}" floatingLabel label="Task 1"></paper-input>
-                <paper-input value="{{ newTask2 }}" floatingLabel label="Task 2"></paper-input>
-                <paper-input value="{{ newTask3 }}" floatingLabel label="Task 3"></paper-input>
-                <paper-button label="Submit" on-tap="{{ submitNew }}" raisedButton id="submitBut"></paper-button>
+            <paper-input value="{{ newTask1 }}" floatingLabel label="Task 1"></paper-input>
+            <paper-input value="{{ newTask2 }}" floatingLabel label="Task 2"></paper-input>
+            <paper-input value="{{ newTask3 }}" floatingLabel label="Task 3"></paper-input>
+            <paper-button label="Submit" on-tap="{{ submitNew }}" raisedButton id="submitBut"></paper-button>
             </p>
         </paper-dialog>
         <div layout vertical center>
@@ -58,7 +60,7 @@
         Polymer('day-card', {
             created: function () {
                 var date = new Date();
-                this.date = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+                this.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
             },
             observe: {
                 'task1.completed': 'taskChange',
@@ -89,9 +91,9 @@
             },
             submitNew: function () {
                 console.log('submit');
-                this.task1 = {"title":this.newTask1, priority:1, completed:false};
-                this.task2 = {"title":this.newTask2, priority:2, completed:false};
-                this.task3 = {"title":this.newTask3, priority:3, completed:false};
+                this.task1 = {"title": this.newTask1, priority: 1, completed: false};
+                this.task2 = {"title": this.newTask2, priority: 2, completed: false};
+                this.task3 = {"title": this.newTask3, priority: 3, completed: false};
                 this.$.newDialog.toggle();
             }
 
