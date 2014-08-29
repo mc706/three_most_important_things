@@ -22,7 +22,7 @@
                    auto
                    method="get"
                    url="/today/"
-                   headers='{"HTTP_DATE":"{{ date }}"}'
+                   headers='{"DATE_CLIENT":"{{ date }}"}'
                    on-core-response="{{ tasksLoaded }}"
                    response="{{ tasks }}"
                    handleAs="json"
@@ -32,7 +32,7 @@
                    auto="false"
                    method="post"
                    url="/today/"
-                   headers='{"HTTP_DATE":"{{ date }}"}'
+                   headers='{"DATE_CLIENT":"{{ date }}"}'
                    on-core-response="{{ postSuccess }}"
                    on-core-error=""
                    response="{{ tasks }}"

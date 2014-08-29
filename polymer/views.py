@@ -14,16 +14,13 @@ def home(request):
 @login_required(login_url='/login/')
 @csrf_exempt
 def today(request):
-    if 'HTTP_DATE' in request.META:
-        today = datetime.strptime(request.META['HTTP_DATE'], '%Y-%m-%d')
-        print "using today from GET"
+    if 'HTTP_DATE_CLIENT' in request.META:
+        today = datetime.strptime(request.META['HTTP_DATE_CLIENT'], '%Y-%m-%d')
     else:
         today = date.today()
     if request.method == "POST" and request.body.decode('utf-8'):
-        print request.body.decode('utf-8')
         day, created = Day.objects.get_or_create(account=request.user, date=today)
         for i, task in enumerate(json.loads(request.body.decode('utf-8'))):
-            print i, task
             t, created = Task.objects.get_or_create(day=day, priority=i + 1)
             t.title = task['title']
             t.completed = task['completed']
