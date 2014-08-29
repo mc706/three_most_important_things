@@ -14,9 +14,8 @@ def home(request):
 @login_required(login_url='/login/')
 @csrf_exempt
 def today(request):
-    print request.GET
-    if 'date' in request.GET:
-        today = datetime.strptime(request.GET['date'], '%Y-%m-%d')
+    if 'HTTP_DATE' in request.META:
+        today = datetime.strptime(request.META['HTTP_DATE'], '%Y-%m-%d')
         print "using today from GET"
     else:
         today = date.today()
